@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Insert data{% endblock %}
+{% block css %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+        .btn {
+            width: 80px;
+            background-color: gray;
+            border-radius: 7px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="content">
+    <h3>Insert</h3>
+    <form method="POST" action="http://localhost:5000/traffic_accidents/">
+        {{ form.csrf_token }}
+        <table>
+            <tr>
+                <td><label for="event_time">time</label></td>
+                <td><input id="event_time" name="event_time" required type="datetime-local"></td>  
+            </tr>
+            <tr>
+                <td><label for="event_location">location</label></td>
+                <td><input id="event_location" name="event_location" required type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="deaths">deaths</label></td>
+                <td><input id="deaths" name="deaths" required type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="injuries">injuries</label></td> 
+                <td> <input id="injuries" name="injuries" required type="text"></td>
+            </tr>
+            
+            <tr class="vehicle_type1">
+                <td><label for="vehicle_type1">vehicle_type1</label> </td>
+                <td><select id="vehicle_type1" name="vehicle_type1" value="">
+                <optgroup label="大客車">
+                    <option value="公營公車-大客車">公營公車</option>
+                    <option value="民營公車-大客車">民營公車</option>
+                    <option value="公營客運-大客車">公營客運</option>
+                    <option value="民營客運-大客車">民營客運</option>
+                    <option value="遊覽車-大客車">遊覽車</option>
+                    <option value="自用大客車-大客車">自用大客車</option>
+                    </optgroup>
+                    <optgroup label="大貨車">
+                    <option value="營業用-大貨車">營業用</option>
+                    <option value="自用-大貨車">自用</option>
+                    </optgroup>
+                    <optgroup label="全聯結車">
+                    <option value="營業用-全聯結車">營業用</option>
+                    <option value="自用-全聯結車">自用</option>
+                    </optgroup>
+                    <optgroup label="半聯結車">
+                    <option value="營業用-半聯結車">營業用</option>
+                    <option value="自用-半聯結車">自用</option>
+                    </optgroup>
+                    <optgroup label="曳引車">
+                    <option value="營業用-曳引車">營業用</option>
+                    <option value="自用-曳引車">自用</option>
+                    </optgroup>
+                    <optgroup label="小客車">
+                    <option value="計程車-小客車">計程車</option>
+                    <option value="租賃車-小客車">租賃車</option>
+                    <option value="自用-小客車">自用</option>
+                    </optgroup>
+                    <optgroup label="小貨車(含客、貨兩用)">
+                    <option value="營業用-小貨車(含客、貨兩用)">營業用</option>
+                    <option value="自用-小貨車(含客、貨兩用)">自用</option>
+                    </optgroup>
+                    <optgroup label="機車">
+                    <option value="大型重型1(550C.C.以上)-機車">大型重型1(550C.C.以上)</option>
+                    <option value="大型重型2(250-550C.C.)-機車">大型重型2(250-550C.C.)</option>
+                    <option value="普通重型-機車">普通重型</option>
+                    <option value="普通輕型-機車">普通輕型</option>
+                    <option value="小型輕型-機車">小型輕型</option>
+                    </optgroup>
+                    <optgroup label="軍車">
+                    <option value="大客車-軍車">大客車</option>
+                    <option value="載重車-軍車">載重車</option>
+                    <option value="小型車-軍車">小型車</option>
+                    </optgroup>
+                    <optgroup label="特種車">
+                    <option value="救護車-特種車">救護車</option>
+                    <option value="消防車-特種車">消防車</option>
+                    <option value="警備車-特種車">警備車</option>
+                    <option value="工程車-特種車">工程車</option>
+                    <option value="其他特種車-特種車">其他特種車</option>
+                    </optgroup>
+                    <optgroup label="慢車">
+                    <option value="腳踏自行車-慢車">腳踏自行車</option>
+                    <option value="電動輔助自行車-慢車">電動輔助自行車</option>
+                    <option value="電動自行車-慢車">電動自行車</option>
+                    <option value="人力車-慢車">人力車</option>
+                    <option value="獸力車-慢車">獸力車</option>
+                    <option value="其他慢車-慢車">其他慢車</option>
+                    </optgroup>
+                    <optgroup label="其他車">
+                    <option value="拼裝車-其他車">拼裝車</option>
+                    <option value="農耕用車(或機械)-其他車">農耕用車(或機械)</option>
+                    <option value="動力機械-其他車">動力機械</option>
+                    <option value="拖車(架)-其他車">拖車(架)</option>
+                    <option value="火車-其他車">火車</option>
+                    <option value="其他車-其他車">其他車</option>
+                    </optgroup>
+                    <optgroup label="人">
+                    <option value="行人-人">行人</option>
+                    <option value="乘客-人">乘客</option>
+                    <option value="其他人-人">其他人</option>
+                    </optgroup>
+                </select>
+                </td>
+                <td><input type="button" value="+" class="add"></td>
+                <td><input type="button" value="-" class="remove"></td>
+            </tr>
+            <tr>
+                <td><label for="longitude">longitude</label></td>
+                <td><input id="longitude" name="longitude" required type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="latitude">latitude</label></td>
+                <td><input id="latitude" name="latitude" required type="text" value=""></td>
+            </tr>
+            <tr>
+                <td><input id="submit" name="submit" type="submit" value="submit"></td> 
+                <td><div class="btn">append</div></td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    
+{% endblock %}
+{% block script %}
+    {{ super() }}
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/append.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}City{% endblock %}
+{% block css %}
+    {{ super() }}
+    <style>
+        .row {
+            margin-top: 40px;
+        }
+
+        button.col-md-4 {
+            height: 40px;
+            border-radius: 10px;
+        }
+    </style> 
+{% endblock %}
+{% block body %}
+    <div class="container"></div>
+        
+        <div class="row justify-content-center">
+            <h3>各縣市事件數目</h3>
+        </div>
+        <!-- <div class="row ">
+            <button class="col-1 offset-10 sort">正序</button>
+        </div> -->
+        <div class="row justify-content-center">
+            <canvas id="myChart1" class="col-10" style="widows: 50%;"></canvas>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    {{ super() }}
+    <script>
+        var desc = 0;
+        var jsonData = []
+        var api = "http://localhost:5000/traffic_analytics?type=city";
+        $.getJSON(api, function(json){
+            console.log(json)
+            jsonData = json
+            var count = json.map(function(item){
+                return item.count;
+            });
+
+            var event_city = json.map(function(item){
+                return item.event_city;
+            });
+            
+            var deaths = json.map(function(item){
+                return item.deaths;
+            });
+
+            var injuries = json.map(function(item){
+                return item.injuries;
+            });
+
+            var ctx = $("#myChart1")[0].getContext('2d');
+            
+            var data = {
+                labels:event_city,
+                datasets:[{
+                    label:"數量",
+                    data:count,
+                    backgroundColor:"#838A2D",
+                    borderColor:"#000",
+                    borderWidth:1,
+                    barPercentage: .4,
+                    lineTension:0.2
+                }
+                /*,{
+                    label:"sold",
+                    data:sold,
+                    backgroundColor:"rgba(15,77,98,.85)",
+                    borderColor:"#000",
+                    borderWidth:3,
+                    barPercentage: .4
+                }*/]
+            }
+        
+            var options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            };
+
+            var myChart = new Chart(ctx, {
+                type: 'horizontalBar', 
+                data: data,
+                options: options
+            });
+
+        })
+
+        $(".sort").click(function(){
+            console.log(jsonData, desc)
+            jsonData = jsonData.sort(function (a, b) {
+                if (desc == 0) {
+                    desc = 1;
+                    return a.count > b.count ? 1 : -1;
+                } else {
+                    desc = 0;
+                    return a.count > b.count ? -1 : 1;
+                }
+                
+            });
+        })
+        
+    </script>
+{% endblock %}

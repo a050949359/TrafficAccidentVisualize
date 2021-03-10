@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block css %}
+    {{ super() }}
+    <style>
+        body {
+            background-color: #838A2D;
+        }
+
+        .row {
+            margin-top: 40px;
+        }
+
+        button {
+            -webkit-appearance: none;
+               -moz-appearance: none;
+                    appearance: none;
+            outline: 0;
+            background-color: white;
+            border: 0;
+            padding: 10px 15px;
+            color: #838A2D;
+            border-radius: 3px;
+            width: 250px;
+            cursor: pointer;
+            font-size: 18px;
+            -webkit-transition-duration: 0.25s;
+                    transition-duration: 0.25s;
+        }
+        button:hover {
+            background-color: #f5f7f9;
+        }
+
+        button.col-md-4 {
+            height: 40px;
+            border-radius: 10px;
+        }
+    </style> 
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <button class="col-md-4 insert">Insert</button>
+    </div>
+    <div class="row justify-content-center">
+        <button class="col-md-4 map">map</button>
+    </div>
+    <div class="row justify-content-center">
+        <button class="col-md-4 vehicle">vehicle</button>
+    </div>
+    <div class="row justify-content-center">
+        <button class="col-md-4 city">city</button>
+    </div>
+    <div class="row justify-content-center">
+        <button class="col-md-4 month">month</button>
+    </div>
+    <div class="row justify-content-center">    
+        <button class="col-md-4 hours">hours</button>     
+    </div>
+    <div class="row justify-content-center">      
+        <button class="col-md-4 most_location">most location</button>
+    </div>
+    
+    <div class="loader loader--style4" title="3">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           width="24px" height="24px" viewBox="0 0 24 24" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+          <rect x="0" y="0" width="4" height="7" fill="#333">
+            <animateTransform  attributeType="xml"
+              attributeName="transform" type="scale"
+              values="1,1; 1,3; 1,1"
+              begin="0s" dur="0.6s" repeatCount="indefinite" />       
+          </rect>
+      
+          <rect x="10" y="0" width="4" height="7" fill="#333">
+            <animateTransform  attributeType="xml"
+              attributeName="transform" type="scale"
+              values="1,1; 1,3; 1,1"
+              begin="0.2s" dur="0.6s" repeatCount="indefinite" />       
+          </rect>
+          <rect x="20" y="0" width="4" height="7" fill="#333">
+            <animateTransform  attributeType="xml"
+              attributeName="transform" type="scale"
+              values="1,1; 1,3; 1,1"
+              begin="0.4s" dur="0.6s" repeatCount="indefinite" />       
+          </rect>
+        </svg>
+      </div>
+
+</div>
+{% endblock %}
+{% block script %}
+    {{ super() }}
+    <script type="text/javascript">
+        $(".insert").click(function(){
+            window.open("http://localhost:5000/traffic_accident/append", "_blank"); 
+        })
+        $(".map").click(function(){
+            window.open("http://localhost:5000/traffic_accident/map", "_blank"); 
+        })
+        $(".vehicle").click(function(){
+            window.open("http://localhost:5000/traffic_analytics/vehicle", "_blank"); 
+        })
+        $(".city").click(function(){
+            window.open("http://localhost:5000/traffic_analytics/city", "_blank"); 
+        })
+        $(".month").click(function(){
+            window.open("http://localhost:5000/traffic_analytics/month", "_blank"); 
+        })
+        $(".hours").click(function(){
+            window.open("http://localhost:5000/traffic_analytics/hours", "_blank"); 
+        })
+        $(".most_location").click(function(){
+            window.open("http://localhost:5000/traffic_analytics/most_location", "_blank"); 
+        })
+    </script>
+    {% endblock %}

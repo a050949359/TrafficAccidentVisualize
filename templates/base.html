@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+    {% block css %}{{ bootstrap.load_css() }}{% endblock %}
+</head>
+<body>
+    {% block body %}{% endblock %}
+    {% block script %}{{ bootstrap.load_js() }}{% endblock %}
+</body>
+</html>

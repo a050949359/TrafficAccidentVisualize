@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Month{% endblock %}
+{% block css %}
+    {{ super() }}
+    <style>
+        .row {
+            margin-top: 40px;
+        }
+
+        button.col-md-4 {
+            height: 40px;
+            border-radius: 10px;
+        }
+
+    </style> 
+{% endblock %}
+{% block body %}
+    <div class="container"></div>
+        <div class="row justify-content-center">
+            <h3><span>全台</span>每月事件數目</h3>
+        </div>
+    
+        <div class="row justify-content-center">
+            <canvas id="myChart1" class="col-10" style="widows: 50%;"></canvas>
+        </div>
+    </div>
+    
+{% endblock %}
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    {{ super() }}
+    <script>
+        var api = "http://localhost:5000/traffic_analytics?type=month";
+        $.getJSON(api, function(json){
+            console.log(json)
+
+            var count = json.map(function(item){
+                return item.count;
+            });
+
+            var month = json.map(function(item){
+                return item.month;
+            });
+
+            var deaths = json.map(function(item){
+                return item.deaths;
+            });
+
+            var injuries = json.map(function(item){
+                return item.injuries;
+            });
+
+            var ctx = $("#myChart1")[0].getContext('2d');
+
+            var data = {
+                labels:month,
+                datasets:[{
+                    label:"數量",
+                    data:count,
+                    backgroundColor:'rgba(0,0,0,0)',
+                    borderColor:"#000",
+                    borderWidth:3,
+                    barPercentage: .4,
+                    lineTension:0
+                }
+                /*,{
+                    label:"sold",
+                    data:sold,
+                    backgroundColor:"rgba(15,77,98,.85)",
+                    borderColor:"#000",
+                    borderWidth:3,
+                    barPercentage: .4
+                }*/]
+            }
+        
+            var options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                }
+            };
+
+            var myChart = new Chart(ctx, {
+                type: 'line', 
+                data: data,
+                options: options
+            });
+        })
+        
+    </script>
+{% endblock %}
